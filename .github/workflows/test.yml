@@ -1,0 +1,29 @@
+name: Test Binance API dostupnost
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  test-binance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Binance API
+        run: |
+          echo "=== Test 1: Cena BTCUSDT ==="
+          curl -s -w "\nHTTP status: %{http_code}\n" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT" | head -c 500
+          echo ""
+          echo ""
+          echo "=== Test 2: Hodinové klines ==="
+          curl -s -w "\nHTTP status: %{http_code}\n" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=5" | head -c 500
+          echo ""
+          echo ""
+          echo "=== Test 3: Denní klines ==="
+          curl -s -w "\nHTTP status: %{http_code}\n" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
+            "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=5" | head -c 500
