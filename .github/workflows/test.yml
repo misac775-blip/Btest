@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Zavolej WEDOS skript
         run: |
-          curl -s -w "\nHTTP status: %{http_code}\n" "https://svet-vyrezu.cz/dpo/Dpowedos.php"
+          curl -s -w "\nHTTP status: %{http_code}\n" "https://svet-vyrezu.cz/Dpo/Dpowedos.php"
